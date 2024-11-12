@@ -49,7 +49,10 @@ def match_skills(resume_text, job_description_text):
     common_skills = {
         "Python", "Java", "SQL", "Project Management", "Machine Learning",
         "Data Analysis", "Communication", "Leadership", "Problem Solving",
-        "Time Management", "JavaScript", "HTML", "CSS", "Git", "Teamwork"
+        "Time Management", "JavaScript", "HTML", "CSS", "Git", "Teamwork","Tableau","R","Data mining","Data Visulization","NLP"
+        "web developer","frontend developer","c++","c","Backend developer","devops","Ruby","React","Mern","Statistical Analysis","CNN","LLM",
+        "Ms Excel","data science","Problem Solving abilities","data Analytics","MongoDB","Express.js","Node.js",
+        "Ajax","MVC","JQuery","XML","WCf","NET","ASP.NET"
     }
 
     # Normalize text (convert to lowercase and remove punctuation)
