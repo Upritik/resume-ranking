@@ -44,6 +44,32 @@ def extract_text_from_pdf(pdf_file):
         print("Error extracting text from PDF:", e)
         return None
 
+def match_skills(resume_text, job_description_text):
+    # Define a set of common skills (this can be expanded or loaded from a database/file)
+    common_skills = {
+        "Python", "Java", "SQL", "Project Management", "Machine Learning",
+        "Data Analysis", "Communication", "Leadership", "Problem Solving",
+        "Time Management", "JavaScript", "HTML", "CSS", "Git", "Teamwork"
+    }
+
+    # Normalize text (convert to lowercase and remove punctuation)
+    resume_skills = extract_skills_from_text(resume_text, common_skills)
+    job_description_skills = extract_skills_from_text(job_description_text, common_skills)
+
+    # Find intersection (skills that match in both resume and job description)
+    matched_skills = resume_skills.intersection(job_description_skills)
+
+    return list(matched_skills)
+
+def extract_skills_from_text(text, skill_set):
+    # Normalize text
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
+
+    # Extract skills by checking for each skill in text
+    found_skills = {skill for skill in skill_set if skill.lower() in text}
+    return found_skills
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -53,7 +79,8 @@ def predict():
             return jsonify({'error': 'No file uploaded'}), 400
         
         file = request.files['resume']
-        
+        job_description = request.form.get('jobDescription', '')
+
         # Check if a valid PDF file was uploaded
         if file.filename == '':
             print("No selected file")
@@ -66,20 +93,25 @@ def predict():
             print("Failed to extract text from PDF")
             return jsonify({'error': 'Failed to extract text from PDF'}), 500
         
-        # Clean and predict
-        cleaned_text = clean_text(resume_text)
-        resume_tfidf = vectorizer.transform([cleaned_text])
-        
-        # Get the predicted category and confidence score
+        # Clean the resume and job description text
+        cleaned_resume_text = clean_text(resume_text)
+        cleaned_job_description = clean_text(job_description)
+
+        # Predict the category and confidence score
+        resume_tfidf = vectorizer.transform([cleaned_resume_text])
         prediction = model.predict(resume_tfidf)
         prediction_prob = model.predict_proba(resume_tfidf)
         
         # Find the confidence score for the predicted category
-        confidence_score = np.max(prediction_prob) * 100  # Convert to percentage
+        resume_score = np.max(prediction_prob) * 100  # Convert to percentage
+
+        # Match skills between resume and job description
+        matched_skills = match_skills(cleaned_resume_text, cleaned_job_description)
         
         return jsonify({
             'category': prediction[0],
-            'confidence_score': round(confidence_score, 2)  # Rounded to 2 decimal places
+            'resume_score': round(resume_score, 2),  # Rounded to 2 decimal places
+            'matched_skills': matched_skills
         })
     except Exception as e:
         print("Prediction error:", e)
