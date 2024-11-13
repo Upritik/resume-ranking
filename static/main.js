@@ -35,6 +35,9 @@ document.getElementById('resumeForm').addEventListener('submit', async function(
             if (jobDescription.trim() !== '' && result.matched_skills && result.matched_skills.length > 0) {
                 resultHTML += `<p><strong>Matched Skills:</strong> ${result.matched_skills.join(', ')}</p>`;
             }
+            if (result.missing_skills && result.missing_skills.length > 0) {
+                resultHTML += `<p><strong>Missing Skills:</strong> ${result.missing_skills.join(', ')}</p>`;
+            }
 
             document.getElementById('result').innerHTML = resultHTML;
         }
