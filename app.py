@@ -51,7 +51,7 @@ def match_skills(resume_text, job_description_text):
         "Time Management", "JavaScript", "HTML", "CSS", "Git", "Teamwork", "Tableau", "R", "Data mining", "Data Visualization", "NLP",
         "Web developer", "frontend developer", "C++", "C", "Backend developer", "devops", "Ruby", "React", "Mern", "Statistical Analysis", "CNN", "LLM",
         "Ms Excel", "data science", "Problem Solving abilities", "Data Analytics", "MongoDB", "Express.js", "Node.js",
-        "Ajax", "MVC", "JQuery", "XML", "WCF", ".NET", "ASP.NET", "Mern Stack"
+        "Ajax", "MVC", "JQuery", "XML", "WCF", ".NET", "ASP.NET", "Mern Stack","AWS","Azure","Google Cloud","Power BI","Tensor Flow","PyTorch"
     }
     resume_skills = extract_skills_from_text(resume_text, common_skills)
     job_description_skills = extract_skills_from_text(job_description_text, common_skills)
@@ -65,7 +65,7 @@ def extract_missing_skills(resume_text, job_description_text):
         "Time Management", "JavaScript", "HTML", "CSS", "Git", "Teamwork", "Tableau", "R", "Data mining", "Data Visualization", "NLP",
         "Web developer", "frontend developer", "C++", "C", "Backend developer", "devops", "Ruby", "React", "Mern", "Statistical Analysis", "CNN", "LLM",
         "Ms Excel", "data science", "Problem Solving abilities", "Data Analytics", "MongoDB", "Express.js", "Node.js",
-        "Ajax", "MVC", "JQuery", "XML", "WCF", ".NET", "ASP.NET", "Mern Stack"
+        "Ajax", "MVC", "JQuery", "XML", "WCF", ".NET", "ASP.NET", "Mern Stack","AWS","Azure","Google Cloud","Power BI","Tensor Flow","PyTorch"
     }
     resume_skills = extract_skills_from_text(resume_text, common_skills)
     job_description_skills = extract_skills_from_text(job_description_text, common_skills)
